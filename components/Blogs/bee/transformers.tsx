@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { Chrono } from "react-chrono";
 import Image from "next/image";
@@ -16,6 +16,86 @@ import PowerSupply from "../../../images/blog/bee/transformers/image12.gif";
 import TransformerWorking from "../../../images/blog/bee/transformers/image3.gif";
 import TurnRatio from "../../../images/blog/bee/transformers/image1.png";
 import AutoTransformer from "../../../images/blog/bee/transformers/image8.jpg";
+const quizQuestions = [
+  {
+    question: "What is the primary function of a transformer?",
+    options: [
+      "Convert AC to DC",
+      "Transfer electrical energy between two or more coils",
+      "Store electrical energy",
+      "Generate electricity",
+    ],
+    answer: 1,
+  },
+  {
+    question: "What type of transformer is generally used for high voltage applications?",
+    options: [
+      "Core type",
+      "Shell type",
+      "Auto transformer",
+      "All of the above",
+    ],
+    answer: 0,
+  },
+  {
+    question: "Which law forms the basis of the transformer's operation?",
+    options: [
+      "Ohm's Law",
+      "Faraday's Law of Electromagnetic Induction",
+      "Newton's Law",
+      "Kirchhoff's Law",
+    ],
+    answer: 1,
+  },
+  {
+    question: "What type of loss occurs due to the cyclic reversal of magnetic fields in a transformer?",
+    options: [
+      "Eddy current loss",
+      "Hysteresis loss",
+      "Copper loss",
+      "Core loss",
+    ],
+    answer: 1,
+  },
+  {
+    question: "In a step-down transformer, the primary coil has:",
+    options: [
+      "More turns than the secondary coil",
+      "Fewer turns than the secondary coil",
+      "Equal turns as the secondary coil",
+      "No turns",
+    ],
+    answer: 0,
+  },
+];
+
+const Transformers = () => {
+  const [quizAnswers, setQuizAnswers] = useState(Array(quizQuestions.length).fill(null));
+  const [quizSubmitted, setQuizSubmitted] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
+
+  const handleQuizAnswer = (questionIndex, optionIndex) => {
+    const updatedAnswers = [...quizAnswers];
+    updatedAnswers[questionIndex] = optionIndex;
+    setQuizAnswers(updatedAnswers);
+  };
+
+  const handleSubmitQuiz = () => {
+    setQuizSubmitted(true);
+  };
+
+  const handleLike = () => {
+    setLikeCount(likeCount + 1);
+  };
+
+  const handleAddComment = () => {
+    if (newComment.trim() !== "") {
+      setComments([...comments, newComment]);
+      setNewComment("");
+    }
+  };
 
 
 const Transformers = () => {
@@ -173,6 +253,77 @@ const Transformers = () => {
 
           </div>
         </div>
+        <h1 className="text-3xl my-8">Quiz</h1>
+        <div>
+          {quizQuestions.map((question, index) => (
+            <div key={index} className="my-4">
+              <p>{question.question}</p>
+              {question.options.map((option, optionIndex) => (
+                <div key={optionIndex}>
+                  <input
+                    type="radio"
+                    id={`question-${index}-option-${optionIndex}`}
+                    name={`question-${index}`}
+                    checked={quizAnswers[index] === optionIndex}
+                    onChange={() => handleQuizAnswer(index, optionIndex)}
+                    disabled={quizSubmitted}
+                  />
+                  <label htmlFor={`question-${index}-option-${optionIndex}`}>{option}</label>
+                </div>
+              ))}
+            </div>
+          ))}
+          {!quizSubmitted && (
+            <button onClick={handleSubmitQuiz} className="bg-blue-500 text-white px-4 py-2 mt-4">
+              Submit Quiz
+            </button>
+          )}
+          {quizSubmitted && (
+            <div>
+              <h2 className="text-2xl mt-4">Results</h2>
+              {quizQuestions.map((question, index) => (
+                <div key={index} className="my-4">
+                  <p>
+                    {question.question} -{" "}
+                    {quizAnswers[index] === question.answer ? "Correct" : "Incorrect"}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="my-8">
+          <button onClick={handleLike} className="bg-green-500 text-white px-4 py-2">
+            Like ({likeCount})
+          </button>
+        </div>
+
+        <h1 className="text-3xl my-8">Comments</h1>
+        <div>
+          <input
+            type="text"
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="Add a comment"
+            className="border-2 border-gray-300 px-4 py-2 w-full"
+          />
+          <button onClick={handleAddComment} className="bg-blue-500 text-white px-4 py-2 mt-4">
+            Add Comment
+          </button>
+        </div>
+        <div className="mt-8">
+          {comments.map((comment, index) => (
+            <div key={index} className="border-b-2 border-gray-300 py-2">
+              {comment}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
     )
 }
 
