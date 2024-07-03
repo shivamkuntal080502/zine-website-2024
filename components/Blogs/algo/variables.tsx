@@ -1,6 +1,4 @@
-import React from "react";
-import Link from "next/link";
-import { Chrono } from "react-chrono";
+import React, { useState } from "react";
 import Image from "next/image";
 import FirstImage from "../../../images/blog/algo/variables/image5.jpg";
 import HandDrawing from "../../../images/blog/algo/variables/image12.jpg";
@@ -15,6 +13,136 @@ import Code2 from "../../../images/blog/algo/variables/image8.png";
 import Code3 from "../../../images/blog/algo/variables/image6.png";
 import CommentMeme from "../../../images/blog/algo/variables/commenter.png";
 import CommentCode from "../../../images/blog/algo/variables/comment.png";
+
+// Quiz Component
+const Quiz = () => {
+  const [answers, setAnswers] = useState({});
+  const questions = [
+    {
+      question: "What is a variable?",
+      options: ["A container", "A function", "A data type", "An operator"],
+      correct: "A container",
+    },
+    {
+      question: "Which of these is a data type?",
+      options: ["int", "printf", "scanf", "if"],
+      correct: "int",
+    },
+    {
+      question: "Which symbol is used for comments in C?",
+      options: ["//", "/* */", "#", "Both // and /* */"],
+      correct: "Both // and /* */",
+    },
+    {
+      question: "What is the range of an int in C?",
+      options: [
+        "0 to 65535",
+        "-32768 to 32767",
+        "-2147483648 to 2147483647",
+        "0 to 4294967295",
+      ],
+      correct: "-2147483648 to 2147483647",
+    },
+    {
+      question: "Which function is used for output in C?",
+      options: ["scanf", "printf", "print", "cout"],
+      correct: "printf",
+    },
+  ];
+
+  const handleAnswer = (questionIndex, option) => {
+    setAnswers({
+      ...answers,
+      [questionIndex]: option,
+    });
+  };
+
+  const handleSubmit = () => {
+    const score = questions.reduce((total, question, index) => {
+      return total + (answers[index] === question.correct ? 1 : 0);
+    }, 0);
+    alert(`Your score is ${score} out of ${questions.length}`);
+  };
+
+  return (
+    <div className="quiz">
+      <h2 className="text-2xl my-8 font-bold">Quiz on Variables</h2>
+      {questions.map((question, index) => (
+        <div key={index} className="question mb-4">
+          <p>{question.question}</p>
+          {question.options.map((option) => (
+            <div key={option}>
+              <input
+                type="radio"
+                name={`question-${index}`}
+                value={option}
+                onChange={() => handleAnswer(index, option)}
+              />
+              {option}
+            </div>
+          ))}
+        </div>
+      ))}
+      <button
+        onClick={handleSubmit}
+        className="bg-blue-500 text-white px-4 py-2 rounded"
+      >
+        Submit
+      </button>
+    </div>
+  );
+};
+
+// Like Button Component
+const LikeButton = () => {
+  const [likes, setLikes] = useState(0);
+
+  return (
+    <div className="like-button my-4">
+      <button
+        onClick={() => setLikes(likes + 1)}
+        className="bg-red-500 text-white px-4 py-2 rounded"
+      >
+        Like
+      </button>
+      <p>{likes} Likes</p>
+    </div>
+  );
+};
+
+// Comment Section Component
+const CommentSection = () => {
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
+
+  const handleCommentSubmit = () => {
+    setComments([...comments, newComment]);
+    setNewComment("");
+  };
+
+  return (
+    <div className="comment-section my-8">
+      <h2 className="text-2xl font-bold">Comments</h2>
+      <div className="my-4">
+        {comments.map((comment, index) => (
+          <p key={index}>{comment}</p>
+        ))}
+      </div>
+      <input
+        type="text"
+        value={newComment}
+        onChange={(e) => setNewComment(e.target.value)}
+        className="border-2 border-gray-300 p-2 rounded w-full"
+      />
+      <button
+        onClick={handleCommentSubmit}
+        className="bg-green-500 text-white px-4 py-2 rounded mt-2"
+      >
+        Add Comment
+      </button>
+    </div>
+  );
+};
 
 
 const Variables = () => {
