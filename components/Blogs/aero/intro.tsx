@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
+import Doraemon from "../../../images/blog/aero/intro/image1.jpg";
+import Aeroplane from "../../../images/blog/aero/intro/image2.jpg";
 import Doraemon from "../../../images/blog/aero/intro/image1.jpg";
 import Aeroplane from "../../../images/blog/aero/intro/image2.jpg";
 import BernoullisLaw from "../../../images/blog/aero/intro/image3.png";
@@ -18,9 +20,50 @@ import TranssonicAircraft from "../../../images/blog/aero/intro/image15.jpg";
 import SupersonicAircraft from "../../../images/blog/aero/intro/image16.png";
 import HypersonicAircraft from "../../../images/blog/aero/intro/image17.png";
 
-
 const Intro = () => {
-    return(
+    const [likeCount, setLikeCount] = useState(0);
+    const [comments, setComments] = useState([]);
+
+    const handleLike = () => {
+        setLikeCount(likeCount + 1);
+    };
+
+    const handleComment = (comment) => {
+        setComments([...comments, comment]);
+    };
+    const handleQuizAnswer = (question, answer) => {
+        setQuizAnswers({ ...quizAnswers, [question]: answer });
+    };
+
+    const handleQuizSubmit = () => {
+        // Calculate quiz score or display correct answers
+        setShowQuizResults(true);
+    };
+
+    const resetQuiz = () => {
+        setQuizAnswers({});
+        setShowQuizResults(false);
+    };
+
+    const quizQuestions = [
+        {
+            question: "According to Newton's first law of motion, an object will remain at rest or in uniform motion in a straight line unless acted upon by an external force. This is also known as:",
+            options: ["Law of Inertia", "Law of Gravity", "Law of Action and Reaction", "Law of Acceleration"],
+            correctAnswer: "Law of Inertia",
+        },
+        {
+            question: "Newton's second law of motion states that the acceleration of an object is directly proportional to the net force acting on it and inversely proportional to its:",
+            options: ["Velocity", "Mass", "Density", "Volume"],
+            correctAnswer: "Mass",
+        },
+        {
+            question: "Newton's third law of motion states that for every action, there is an equal and opposite reaction. This law is crucial in understanding:",
+            options: ["Lift generation in wings", "Pressure distribution in fluids", "Drag forces on an aircraft", "Thrust produced by engines"],
+            correctAnswer: "Thrust produced by engines",
+        },
+    ];
+
+    return (
         <div className="text-black bg-white w-screen">
           <div className="bg-ee-bg bg-no-repeat bg-center bg-cover bg-fixed py-80 backdrop-blur-lg">
               <div className="pl-32 backdrop-blur-xl">
@@ -29,7 +72,7 @@ const Intro = () => {
           </div>
 
           <div className="mx-16 md:mx-32 lg:mx-48 xl:mx-72 mt-8 text-lg">
-              <p>If you have ever wondered how someone could fly, what would you think of? Wings? Propellers? [Because that’s how the Wright brothers did it, duh]. But how does it work? We are here to answer that question for you. That’s what we do in aeromodelling, we design, construct and fly our airplanes. </p>
+           <p>If you have ever wondered how someone could fly, what would you think of? Wings? Propellers? [Because that’s how the Wright brothers did it, duh]. But how does it work? We are here to answer that question for you. That’s what we do in aeromodelling, we design, construct and fly our airplanes. </p>
               <p>So it can be described as the art of designing, building and flying miniaturized aircrafts (Be it powered or unpowered). So, kudos to you, you have been an aeromodeller since your childhood.</p>
               
               <p className="mt-8">But the real question is why do we need to study this field, don’t we already have the best of aircrafts?</p>
@@ -211,7 +254,77 @@ const Intro = () => {
               </div>
           </div>
         </div>
-    )
-}
+     {/* Like button and count */}
+              <div className="flex items-center justify-center mt-8">
+                <button onClick={handleLike} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  Like {likeCount}
+                </button>
+              </div>
 
+              {/* Comments section */}
+              <div className="mt-8">
+                <h2 className="text-2xl font-bold mb-4">Comments</h2>
+                <ul>
+                  {comments.map((comment, index) => (
+                    <li key={index} className="mb-2">{comment}</li>
+                  ))}
+                </ul>
+                {/* Add comment form */}
+                <form onSubmit={(e) => { e.preventDefault(); handleComment(e.target.comment.value); }}>
+                  <input type="text" name="comment" placeholder="Add a comment..." className="border border-gray-400 rounded-md p-2 w-full" />
+                  <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">Post Comment</button>
+                </form>
+              </div>
+          </div>
+        </div>
+      {/* Quiz section */}
+              <div className="mt-8">
+                <h2 className="text-2xl font-bold mb-4">Quiz</h2>
+                {!showQuizResults ? (
+                    <div>
+                      {quizQuestions.map((question, index) => (
+                        <div key={index} className="mb-4">
+                          <h3 className="text-lg font-bold">{question.question}</h3>
+                          <ul className="ml-4 mt-2">
+                            {question.options.map((option, idx) => (
+                              <li key={idx} className="cursor-pointer" onClick={() => handleQuizAnswer(question.question, option)}>
+                                <span className="mr-2">{option}</span>
+                                {quizAnswers[question.question] === option && <span>✔️</span>}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                      <div className="flex justify-center mt-4">
+                        <button onClick={handleQuizSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                          Submit Quiz
+                        </button>
+                      </div>
+                    </div>
+                ) : (
+                    <div>
+                      <h3 className="text-lg font-bold">Quiz Results</h3>
+                      <ul className="ml-4 mt-2">
+                        {quizQuestions.map((question, index) => (
+                          <li key={index} className="mb-2">
+                            <strong>{question.question}</strong>
+                            <br />
+                            <span>Your Answer: {quizAnswers[question.question]}</span>
+                            <br />
+                            <span>Correct Answer: {question.correctAnswer}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="flex justify-center mt-4">
+                        <button onClick={resetQuiz} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                          Retake Quiz
+                        </button>
+                      </div>
+                    </div>
+                )}
+              </div>
+          </div>
+        </div>
+    );
+}
 export default Intro;
