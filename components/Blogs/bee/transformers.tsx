@@ -16,6 +16,7 @@ import PowerSupply from "../../../images/blog/bee/transformers/image12.gif";
 import TransformerWorking from "../../../images/blog/bee/transformers/image3.gif";
 import TurnRatio from "../../../images/blog/bee/transformers/image1.png";
 import AutoTransformer from "../../../images/blog/bee/transformers/image8.jpg";
+
 const quizQuestions = [
   {
     question: "What is the primary function of a transformer?",
@@ -97,234 +98,220 @@ const Transformers = () => {
     }
   };
 
+  return (
+    <div className="text-black bg-white w-screen">
+      <div className="bg-ee-bg bg-no-repeat bg-center bg-cover bg-fixed py-80 backdrop-blur-lg">
+        <div className="pl-32 backdrop-blur-xl">
+          <h1 className="text-white text-4xl font-bold">Transformers</h1>
+        </div>
+      </div>
 
-const Transformers = () => {
-    return(
-        <div className="text-black bg-white w-screen">
-          <div className="bg-ee-bg bg-no-repeat bg-center bg-cover bg-fixed py-80 backdrop-blur-lg">
-              <div className="pl-32 backdrop-blur-xl">
-                <h1 className="text-white text-4xl font-bold">Transformers</h1>
-              </div>
-          </div>
+      <div className="mx-32 mt-8 text-lg">
+        <div className="text-center my-8">
+          <Image src={Titanic} />
+        </div>
 
-          <div className="mx-32 mt-8 text-lg">
-            <div className="text-center my-8">
-              <Image src={Titanic} />
-            </div>
+        <p>Before starting off with our topic, congratulations on reaching so far and successfully completing basic electrical and electronic components. We know it’s been a long road so far, but this is just the beginning. We have tried our best to make this flow of knowledge as fluid and as interesting as possible. So stay with us! Now for the topic at hand,</p>
 
-            <p>Before starting off with our topic, congratulations on reaching so far and successfully completing basic electrical and electronic components. We know it’s been a long road so far, but this is just the beginning. We have tried our best to make this flow of knowledge as fluid and as interesting as possible. So stay with us! Now for the topic at hand,</p>
-
-            <div className="grid grid-cols-2">
-              <div className="col-span-1">
-                <div className="text-center my-8">
-                  <Image src={Transformer} />
-                </div>
-              </div>
-              <div className="col-span-1">
-                <p>Transformers were a group of extraterrestrial autonomous robotic organisms living on the faraway planet of Cybertron. Cybertron’s peaceful existence was rocked by the betrayal of Megatron, the leader of the faction Decepticons. The faction opposite is the Autobots led by the epitome of righteousness, Optimus Prime who…. Hey!! Wait a minute these weren’t the transformers we had to discuss.</p>
-              </div>
-            </div>
-
-            <div className="text-center my-8">
-              <Image src={Robot} />
-            </div>
-
-            <div className="grid grid-cols-7">
-              <div className="col-span-2 text-center my-8">
-                <Image src={ParkTransformer} />
-              </div>
-              <div className="col-span-5 my-8">
-                <p>Instead, we are going to have a look at an electrical device equally captivating. Remember those huge brown boxes with lots of wiring, that you were always warned not to go near. That was a transformer! These transformers form a crucial part of most circuits from the smallest ones to even power grids. They range in size from transformers used in mobiles being less than a cubic centimetre in volume, to units weighing hundreds of tons. They are even found in mobile chargers!</p>
-              </div>
-            </div>
-
-            <div className="text-center my-8">
-              <Image src={Pole} />
-            </div>
-
-            <h1 className="text-3xl my-8">Introduction</h1>
-
-            <p>Transformers are devices used to transfer electrical energy in the form of magnetic energy, between two or more coils of wire. During this transfer, we can regulate the levels of current and voltage, according to our needs. Put more formally,</p>
-
-            <p className="my-8 italic">A transformer is a very simple static electro-magnetic passive electrical device that works on the principle of Faraday’s Law of Electromagnetic Induction by converting electrical energy from one form to another.</p>
-
-            <p>Whoa! Too many terms at once. Let us try to understand this definition step by step. It is “static” i.e stationary or immovable. The principle is based on the conversion of electrical to magnetic energy, hence “electromagnetic”. Recall, we talked about what is a “passive” element earlier.</p>
-
-            <div className="grid grid-cols-4 gap-8">
-              <div className="col-span-3 my-8">
-                <p>Lastly, Faraday’s Law of Electromagnetic Induction. It is not something new and you must have gone through the law during your preparation. Don’t worry we won’t go into the long theory again. Visit link for a quick refresher. The law forms the basis of the transformer. We’ll see how soon. But first, let’s try and understand the construction of a transformer.</p>
-              </div>
-              <div className="col-span-1 text-center my-8">
-              <Image src={Boring} />
-              </div>
-            </div>
-
-            <h1 className="text-2xl my-8">Construction</h1>
-
+        <div className="grid grid-cols-2">
+          <div className="col-span-1">
             <div className="text-center my-8">
               <Image src={Transformer} />
             </div>
-
-            <p>The construction of transformers is done in two different ways. There is the shell-type transformer and the core-type transformer.</p>
-
-            <p className="my-8">We’ll discuss them one by one. But before that let’s go through some points common to both. A basic transformer has three parts - a primary coil, a secondary coil, and a laminated steel core. The core is formed by stacking multiple sheets of steel on top of one another. All parts are electrically insulated from each other.</p>
-
-            <div className="text-center my-8">
-              <Image src={SeveralQuestions} />
-            </div>
-            <p>Why is steel used, can’t we use other materials? What is the need for stacking the sheets of steel, wouldn’t making a solid core be much easier?</p>
-
-            <p>A lot of questions may have popped up in your mind. Let’s find some answers. The reason behind all of these has something to do with losses. In a transformer, there are mainly two kinds of losses - hysteresis loss and eddy current loss. Hysteresis loss is caused by the cyclic reversal of magnetic fields that occurs in our circuit. And eddy current loss occurs due to heat dissipation caused by the currents induced in the core due to the same fields. These will get more apparent once we get into the actual working of a transformer. For now, understand that hysteresis loss depends on the material and hence steel is used. As for eddy currents, the magnitude of the current induced is proportional to the length of the conductor perpendicular to the magnetic field. Therefore, using thin laminated sheets reduces the current induced, and consequently the heat loss.</p>
-
-            <p>Now we can move to the two types of transformers.</p>
-
-            <div className="text-center my-8">
-              <Image src={VeryBigImage} />
-            </div>
-
-            <p>The horizontal pillars of the core are called yokes, whereas the vertical ones are called limbs.</p>
-
-            <h1 className="text-2xl my-8">Core Types</h1>
-            <p>In a core type transformer, the primary and secondary coils are wound outside and surrounding the core ring. For better transfer of energy, sometimes the windings are divided into parts with one part of both wrapped on one limb of the core and other parts on the other. Core type transformers are generally used for high voltage applications.</p>
-
-            <div className="text-center my-8">
-              <Image src={CoilTransformer} />
-            </div>
-
-            <h1 className="text-2xl my-8">Shell Types</h1>
-            <p>On the other hand, in a shell type transformer the primary and secondary coils are wound in the interior of the core and it forms a shell-like structure around them. These are generally used for low voltage applications.</p>
-
-            <div className="text-center my-8">
-              <Image src={OuterDiagram} />
-            </div>
-
-            <p>We can now finally move to the working principle of a transformer.</p>
-
-            <h1 className="text-2xl my-8">Working Principle</h1>
-
-            <div className="text-center my-8">
-              <Image src={PowerSupply} />
-            </div>
-
-            <p>The working of a transformer is pretty easy to understand. It starts when an AC voltage is introduced across the primary coil. The current produces a magnetic field that links with the entire steel core. This magnetic field varies with time as our voltage. Now recall Faradays’ law. This varying magnetic field will induce a current in the secondary coil. This is the functioning of the transformer. To summarize, there is the transfer of electrical energy between two coils in the form of magnetic energy.</p>
-
-            <p className="my-8">Now, we mentioned that a transformer can “regulate the levels of voltage and current”. How does that happen? This is done by varying the number of turns in the primary and secondary windings. The magnetic flux created in the core is linked to both coils, hence if one coil has a different number of turns than the other, its voltage and current will also be different. The coil with greater number of turns will have higher voltage and lesser current. With this we can introduce the concept of step up and step down transformers.</p>
-
-            <div className="text-center my-8">
-              <Image src={TransformerWorking} />
-            </div>
-
-            <p>So, if the primary coil has more turns than the secondary coil then the primary voltage will be greater than the secondary voltage. This type of transformer is called a Step-Down transformer. And if the primary coil has fewer turns the transformer is called a Step-Up transformer.</p>
-
-            <div className="text-center my-8">
-              <Image src={TurnRatio} />
-            </div>
-
-            <p>where Np, Ns is the number of turns of the primary and secondary coils respectively and Vp, Vs their voltages. Visit link for a visual recap of what we’ve learnt so far.</p>
-
-            <p className="my-8">Let’s finish this part with two simple questions.</p>
-
-            <p className="border-2 border-solid border-black px-4">Could we make a transformer with both windings having equal number of turns? What could be the use of such a transformer?</p>
-
-            <p className="border-2 border-solid border-black px-4 my-8">How will a transformer react to DC current ? What could be the use of this mode of operation?</p>
-
-            <h1 className="text-3xl my-8">Autotransfomer</h1>
-
-            <div className="grid grid-cols-3">
-              <div className="col-span-1 text-center my-8">
-              <Image src={AutoTransformer} />
-              </div>
-              <div className="col-span-2">
-                <p className="my-8">No discussion about transformers can call itself complete without the autotransformer. An autotransformer is a special type of transformer with only a single winding.</p>
-                <p>How could a transformer work with just a single winding !? Let's find out.</p>
-                <p className="my-8">In an autotransformer, the winding is tapped at various points along its length to provide a portion of the primary voltage to the secondary circuit. The main advantage of this design is that it is more economical with the same rating as the conventional transformer.</p>
-              </div>
-            </div>
-
-            <h1 className="text-3xl my-8">Uses</h1>
-            <p>Equipped with all this knowledge we can now fully understand and appreciate the vital role played by a transformer in electrical circuits.</p>
-            <p>1. Their primary task is to raise or lower voltages according to need. In transmission higher voltages are required as they incur fewer losses(from P=I2*R) and hence have an economic benefit. So, before transmission from power grids, voltages are stepped up using transformers. However, for domestic use, lower voltages are required. Hence, voltages are stepped down using a transformer before supplying for domestic use. The generality of this use may help you understand the scale at which transformers are used.</p>
-            <p>2. We talked about how the components of a transformer are electrically insulated. This is put to use for electrically isolating two circuits.</p>
-            <p>3. We have one last application of transformers. Transformers are also sometimes used to prevent DC current from passing from one circuit to another.</p>
-
-            <p>With this we have reached the end of this section. See you in the next one!</p>
-
-            <p className="border-2 border-solid border-black px-4 my-8">Mail your assignment answers to zine.nitj@gmail.com and contact us in communication channel with doubts.</p>
-
+          </div>
+          <div className="col-span-1">
+            <p>Transformers were a group of extraterrestrial autonomous robotic organisms living on the faraway planet of Cybertron. Cybertron’s peaceful existence was rocked by the betrayal of Megatron, the leader of the faction Decepticons. The faction opposite is the Autobots led by the epitome of righteousness, Optimus Prime who…. Hey!! Wait a minute these weren’t the transformers we had to discuss.</p>
           </div>
         </div>
-        <h1 className="text-3xl my-8">Quiz</h1>
-        <div>
-          {quizQuestions.map((question, index) => (
-            <div key={index} className="my-4">
-              <p>{question.question}</p>
-              {question.options.map((option, optionIndex) => (
-                <div key={optionIndex}>
-                  <input
-                    type="radio"
-                    id={`question-${index}-option-${optionIndex}`}
-                    name={`question-${index}`}
-                    checked={quizAnswers[index] === optionIndex}
-                    onChange={() => handleQuizAnswer(index, optionIndex)}
-                    disabled={quizSubmitted}
-                  />
-                  <label htmlFor={`question-${index}-option-${optionIndex}`}>{option}</label>
-                </div>
-              ))}
-            </div>
-          ))}
-          {!quizSubmitted && (
-            <button onClick={handleSubmitQuiz} className="bg-blue-500 text-white px-4 py-2 mt-4">
-              Submit Quiz
-            </button>
-          )}
-          {quizSubmitted && (
-            <div>
-              <h2 className="text-2xl mt-4">Results</h2>
-              {quizQuestions.map((question, index) => (
-                <div key={index} className="my-4">
-                  <p>
-                    {question.question} -{" "}
-                    {quizAnswers[index] === question.answer ? "Correct" : "Incorrect"}
-                  </p>
-                </div>
-              ))}
-            </div>
-          )}
+
+        <div className="text-center my-8">
+          <Image src={Robot} />
         </div>
 
-        <div className="my-8">
-          <button onClick={handleLike} className="bg-green-500 text-white px-4 py-2">
-            Like ({likeCount})
-          </button>
+        <div className="grid grid-cols-7">
+          <div className="col-span-2 text-center my-8">
+            <Image src={ParkTransformer} />
+          </div>
+          <div className="col-span-5 my-8">
+            <p>Instead, we are going to have a look at an electrical device equally captivating. Remember those huge brown boxes with lots of wiring, that you were always warned not to go near. That was a transformer! These transformers form a crucial part of most circuits from the smallest ones to even power grids. They range in size from transformers used in mobiles being less than a cubic centimetre in volume, to units weighing hundreds of tons. They are even found in mobile chargers!</p>
+          </div>
         </div>
 
-        <h1 className="text-3xl my-8">Comments</h1>
-        <div>
-          <input
-            type="text"
+        <div className="text-center my-8">
+          <Image src={Pole} />
+        </div>
+
+        <h1 className="text-3xl my-8">Introduction</h1>
+
+        <p>Transformers are devices used to transfer electrical energy in the form of magnetic energy, between two or more coils of wire. During this transfer, we can regulate the levels of current and voltage, according to our needs. Put more formally,</p>
+
+        <p className="my-8 italic">A transformer is a very simple static electro-magnetic passive electrical device that works on the principle of Faraday’s Law of Electromagnetic Induction by converting electrical energy from one form to another.</p>
+
+        <p>Whoa! Too many terms at once. Let us try to understand this definition step by step. It is “static” i.e stationary or immovable. The principle is based on the conversion of electrical to magnetic energy, hence “electromagnetic”. Recall, we talked about what is a “passive” element earlier.</p>
+
+        <div className="grid grid-cols-4 gap-8">
+          <div className="col-span-3 my-8">
+            <p>Lastly, Faraday’s Law of Electromagnetic Induction. It is not something new and you must have gone through the law during your preparation. Don’t worry we won’t go into the long theory again. Visit link for a quick refresher. The law forms the basis of the transformer. We’ll see how soon. But first, let’s try and understand the construction of a transformer.</p>
+          </div>
+          <div className="col-span-1 text-center my-8">
+            <Image src={Boring} />
+          </div>
+        </div>
+
+        <h1 className="text-2xl my-8">Construction</h1>
+
+        <div className="text-center my-8">
+          <Image src={Transformer} />
+        </div>
+
+        <p>The construction of transformers is done in two different ways. There is the shell-type transformer and the core-type transformer.</p>
+
+        <p className="my-8">We’ll discuss them one by one. But before that let’s go through some points common to both. A basic transformer has three parts - a primary coil, a secondary coil, and a laminated steel core. The core is formed by stacking multiple sheets of steel on top of one another. All parts are electrically insulated from each other.</p>
+
+        <div className="text-center my-8">
+          <Image src={SeveralQuestions} />
+        </div>
+        <p>Why is steel used, can’t we use other materials? What is the need for stacking the sheets of steel, wouldn’t making a solid core be much easier?</p>
+
+        <p>A lot of questions may have popped up in your mind. Let’s find some answers. The reason behind all of these has something to do with losses. In a transformer, there are mainly two kinds of losses - hysteresis loss and eddy current loss. Hysteresis loss is caused by the cyclic reversal of magnetic fields that occurs in our circuit. And eddy current loss is due to currents produced in our iron core itself.</p>
+
+        <div className="text-center my-8">
+          <Image src={VeryBigImage} />
+        </div>
+
+        <p>Hence the use of materials with low hysteresis loss and laminated sheets (laminated sheets have low eddy current loss). The materials generally used in the making of a transformer are silicon steel or cast iron.</p>
+
+        <h2 className="text-xl my-8">Shell-type transformer</h2>
+
+        <p>In shell-type transformers, the coils are placed on the central limb and are surrounded by the core. The core is generally made up of low reluctance magnetic material and provides a continuous path for the flux. These types of transformers are used where the voltage levels are high.</p>
+
+        <div className="text-center my-8">
+          <Image src={CoilTransformer} />
+        </div>
+
+        <h2 className="text-xl my-8">Core-type transformer</h2>
+
+        <p>Here, the primary and secondary windings are wound outside and surround the laminated core. These transformers are generally used for low-voltage applications.</p>
+
+        <h2 className="text-xl my-8">How does a transformer work?</h2>
+
+        <div className="text-center my-8">
+          <Image src={OuterDiagram} />
+        </div>
+
+        <p>In an ideal condition, the transformer works on the principle of mutual inductance. When an alternating current is supplied to the primary coil, an alternating magnetic flux is generated. This flux, passing through the core, gets linked to the secondary coil, generating an emf (electromotive force) in it. According to Faraday’s Law, the induced emf is equal to the rate of change of flux linkage. This voltage causes current to flow if a load is connected to the secondary coil. The primary coil is connected to the AC power source and the secondary coil is connected to the load.</p>
+
+        <h1 className="text-2xl my-8">Let’s summarize:</h1>
+
+        <div className="text-center my-8">
+          <Image src={PowerSupply} />
+        </div>
+
+        <p>A transformer essentially transfers electrical energy between two or more circuits through electromagnetic induction. They are crucial in the efficient transmission of electrical power over long distances. The three basic components of a transformer are:</p>
+
+        <ul className="list-disc ml-8">
+          <li>Primary coil</li>
+          <li>Secondary coil</li>
+          <li>Laminated core</li>
+        </ul>
+
+        <h1 className="text-2xl my-8">Applications of Transformers</h1>
+
+        <p>Transformers are vital components in electrical systems and have a variety of applications, including:</p>
+
+        <ul className="list-disc ml-8">
+          <li>Power transformers used in transmission networks to step up (increase) or step down (decrease) voltage levels.</li>
+          <li>Distribution transformers that provide the final voltage transformation in the electric power distribution system.</li>
+          <li>Isolation transformers used to isolate different parts of the circuit.</li>
+          <li>Instrument transformers used for measuring and protective relay purposes in electrical power systems.</li>
+          <li>Autotransformers which have a single winding acting as both the primary and secondary winding.</li>
+        </ul>
+
+        <div className="text-center my-8">
+          <Image src={TransformerWorking} />
+        </div>
+
+        <h1 className="text-2xl my-8">Quiz</h1>
+
+        {quizQuestions.map((quiz, index) => (
+          <div key={index} className="my-4">
+            <p className="font-bold">{quiz.question}</p>
+            {quiz.options.map((option, optionIndex) => (
+              <div key={optionIndex} className="flex items-center my-2">
+                <input
+                  type="radio"
+                  name={`question-${index}`}
+                  value={optionIndex}
+                  checked={quizAnswers[index] === optionIndex}
+                  onChange={() => handleQuizAnswer(index, optionIndex)}
+                  className="mr-2"
+                />
+                <label>{option}</label>
+              </div>
+            ))}
+          </div>
+        ))}
+
+        <button
+          onClick={handleSubmitQuiz}
+          className="bg-blue-500 text-white px-4 py-2 rounded my-4"
+        >
+          Submit Quiz
+        </button>
+
+        {quizSubmitted && (
+          <div className="mt-4">
+            <h2 className="text-xl font-bold">Quiz Results</h2>
+            {quizQuestions.map((quiz, index) => (
+              <div key={index} className="my-4">
+                <p className="font-bold">{quiz.question}</p>
+                <p>
+                  Your answer: {quiz.options[quizAnswers[index]]} -{" "}
+                  {quizAnswers[index] === quiz.answer ? (
+                    <span className="text-green-500">Correct</span>
+                  ) : (
+                    <span className="text-red-500">Incorrect</span>
+                  )}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <h1 className="text-2xl my-8">Like & Comment</h1>
+
+        <button
+          onClick={handleLike}
+          className="bg-blue-500 text-white px-4 py-2 rounded my-4"
+        >
+          Like ({likeCount})
+        </button>
+
+        <div className="mt-4">
+          <h2 className="text-xl font-bold">Comments</h2>
+          <textarea
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded my-4"
             placeholder="Add a comment"
-            className="border-2 border-gray-300 px-4 py-2 w-full"
-          />
-          <button onClick={handleAddComment} className="bg-blue-500 text-white px-4 py-2 mt-4">
+          ></textarea>
+          <button
+            onClick={handleAddComment}
+            className="bg-blue-500 text-white px-4 py-2 rounded my-4"
+          >
             Add Comment
           </button>
-        </div>
-        <div className="mt-8">
-          {comments.map((comment, index) => (
-            <div key={index} className="border-b-2 border-gray-300 py-2">
-              {comment}
-            </div>
-          ))}
+          <div className="mt-4">
+            {comments.map((comment, index) => (
+              <div key={index} className="border-b border-gray-300 py-2">
+                <p>{comment}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
   );
 };
-
-    )
-}
 
 export default Transformers;
