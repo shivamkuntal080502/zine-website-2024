@@ -1,29 +1,32 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import ProtectedRoute from "./ProtectedRoute";
 import SideNav from "../sidenav";
 import { useAuth } from "../../../context/authContext";
 import { db } from "../../../firebase";
-import { collection, addDoc, getDocs, query, where, doc, limit, getDoc, DocumentReference, orderBy, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  where,
+  doc,
+  limit,
+  orderBy,
+  onSnapshot,
+  startAfter,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
 import { sendMessage, getMessages, announcementRoom } from "../../../apis/room";
 import sendFCMMessage from "../../../apis/sendFcm";
 import Image from "next/image";
 import Send from "../../../images/icons/Send.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faLeftLong, faReply } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faLeftLong, faReply, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
-interface ITimestamp {
-  seconds: number;
-  nanoseconds: number;
-}
 import ChatDP from "../../../images/admin/logo.png";
-interface IMessageData {
-  from: string;
-  group: string;
-  message: string;
-  replyTo: string;
-  timeStamp: ITimestamp;
-  sender_id: string;
-}
+
+// Styled components
 const ImageWrap = styled.span`
   margin-top: 5px;
   box-sizing: content-box;
@@ -37,6 +40,287 @@ const ImageWrap = styled.span`
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
 `;
+
+const ChatContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.text};
+`;
+
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: ${({ theme }) => theme.header};
+`;
+
+const Messages = styled.div`
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const MessageBubble = styled.div`
+  background-color: ${({ isSent, theme }) =>
+    isSent ? theme.sentMessage : theme.receivedMessage};
+  color: ${({ theme }) => theme.messageText};
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  align-self: ${({ isSent }) => (isSent ? "flex-end" : "flex-start")};
+  position: relative;
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  padding: 10px;
+  background-color: ${({ theme }) => theme.inputBackground};
+`;
+
+const Input = styled.input`
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+`;
+
+const SendButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+`;
+
+const TypingIndicator = styled.div`
+  font-size: 12px;
+  color: ${({ theme }) => theme.typingIndicator};
+`;
+
+const Timestamp = styled.div`
+  font-size: 10px;
+  color: ${({ theme }) => theme.timestamp};
+`;
+
+const LastSeen = styled.div`
+  font-size: 12px;
+  color: ${({ theme }) => theme.lastSeen};
+`;
+
+const ReadReceipt = styled.div`
+  font-size: 10px;
+  color: ${({ theme }) => theme.readReceipt};
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+`;
+
+const EditDeleteButtons = styled.div`
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  display: flex;
+  gap: 5px;
+`;
+
+// Theme
+const lightTheme = {
+  background: "#ffffff",
+  text: "#000000",
+  header: "#f0f0f0",
+  sentMessage: "#e1ffc7",
+  receivedMessage: "#ffffff",
+  messageText: "#000000",
+  inputBackground: "#f0f0f0",
+  typingIndicator: "#808080",
+  timestamp: "#808080",
+  lastSeen: "#808080",
+  readReceipt: "#808080",
+};
+
+const darkTheme = {
+  background: "#181818",
+  text: "#ffffff",
+  header: "#282828",
+  sentMessage: "#4caf50",
+  receivedMessage: "#383838",
+  messageText: "#ffffff",
+  inputBackground: "#282828",
+  typingIndicator: "#b3b3b3",
+  timestamp: "#b3b3b3",
+  lastSeen: "#b3b3b3",
+  readReceipt: "#b3b3b3",
+};
+
+const Channels = () => {
+  const { user } = useAuth();
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const [theme, setTheme] = useState(lightTheme);
+  const [lastVisible, setLastVisible] = useState(null);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [editingMessage, setEditingMessage] = useState(null);
+  const messagesEndRef = useRef(null);
+
+  // Fetch messages
+  useEffect(() => {
+    const q = query(
+      collection(db, "messages"),
+      orderBy("timeStamp", "desc"),
+      limit(20)
+    );
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const messages = [];
+      let lastVisible = null;
+      querySnapshot.forEach((doc, idx) => {
+        if (idx === 0) lastVisible = doc;
+        messages.push({ ...doc.data(), id: doc.id });
+      });
+      setMessages((prev) => [...messages.reverse(), ...prev]);
+      setLastVisible(lastVisible);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // Scroll to bottom
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  const loadMoreMessages = async () => {
+    if (loadingMore || !lastVisible) return;
+    setLoadingMore(true);
+    const q = query(
+      collection(db, "messages"),
+      orderBy("timeStamp", "desc"),
+      startAfter(lastVisible),
+      limit(20)
+    );
+    const querySnapshot = await getDocs(q);
+    const newMessages = [];
+    let newLastVisible = lastVisible;
+    querySnapshot.forEach((doc, idx) => {
+      if (idx === 0) newLastVisible = doc;
+      newMessages.push({ ...doc.data(), id: doc.id });
+    });
+    setMessages((prev) => [...newMessages.reverse(), ...prev]);
+    setLastVisible(newLastVisible);
+    setLoadingMore(false);
+  };
+
+  const handleSendMessage = async () => {
+    if (newMessage.trim() === "") return;
+    if (editingMessage) {
+      await updateDoc(doc(db, "messages", editingMessage.id), {
+        message: newMessage,
+      });
+      setEditingMessage(null);
+    } else {
+      await sendMessage(user.uid, newMessage);
+    }
+    setNewMessage("");
+  };
+
+  const handleEditMessage = (message) => {
+    setNewMessage(message.message);
+    setEditingMessage(message);
+  };
+
+  const handleDeleteMessage = async (messageId) => {
+    await deleteDoc(doc(db, "messages", messageId));
+  };
+
+  const handleTyping = (e) => {
+    setNewMessage(e.target.value);
+    setIsTyping(true);
+    setTimeout(() => setIsTyping(false), 1000);
+  };
+
+  const handleThemeToggle = () => {
+    setTheme(theme === lightTheme ? darkTheme : lightTheme);
+  };
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    // Handle file upload and send message with file URL
+  };
+
+  const handleNotificationPermission = async () => {
+    // Request permission for push notifications and handle subscription
+  };
+
+  return (
+    <ProtectedRoute>
+      <SideNav />
+      <ChatContainer theme={theme}>
+        <Header theme={theme}>
+          <button onClick={handleThemeToggle}>
+            {theme === lightTheme ? "Dark Mode" : "Light Mode"}
+          </button>
+          <LastSeen theme={theme}>Last seen: 5 minutes ago</LastSeen>
+        </Header>
+        <Messages onScroll={(e) => {
+          if (e.target.scrollTop === 0 && !loadingMore) loadMoreMessages();
+        }}>
+          {messages.map((msg) => (
+            <MessageBubble
+              key={msg.id}
+              isSent={msg.sender_id === user.uid}
+              theme={theme}
+            >
+              <div>{msg.message}</div>
+              {msg.fileUrl && <img src={msg.fileUrl} alt="attachment" style={{ maxWidth: "100%", marginTop: "10px" }} />}
+              <Timestamp theme={theme}>
+                {new Date(msg.timeStamp.seconds * 1000).toLocaleTimeString()}
+              </Timestamp>
+              <ReadReceipt theme={theme}>
+                {msg.read ? "Read" : "Unread"}
+              </ReadReceipt>
+              {msg.sender_id === user.uid && (
+                <EditDeleteButtons>
+                  <FontAwesomeIcon icon={faEdit} onClick={() => handleEditMessage(msg)} />
+                  <FontAwesomeIcon icon={faTrash} onClick={() => handleDeleteMessage(msg.id)} />
+                </EditDeleteButtons>
+              )}
+            </MessageBubble>
+          ))}
+          <div ref={messagesEndRef} />
+        </Messages>
+        <TypingIndicator theme={theme}>
+          {isTyping && "User is typing..."}
+        </TypingIndicator>
+        <InputContainer theme={theme}>
+          <Input
+            theme={theme}
+            placeholder="Type a message..."
+            value={newMessage}
+            onChange={handleTyping}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") handleSendMessage();
+            }}
+          />
+          <SendButton onClick={handleSendMessage}>
+            <Image src={Send} alt="Send" width={24} height={24} />
+          </SendButton>
+          <input type="file" onChange={handleFileChange} style={{ display: "none" }} id="fileInput" />
+          <label htmlFor="fileInput" style={{ cursor: "pointer" }}>
+            Attach
+          </label>
+        </InputContainer>
+        <button onClick={handleNotificationPermission}>
+          Enable Notifications
+        </button>
+      </ChatContainer>
+    </ProtectedRoute>
+  );
+};
 
 const Channels = () => {
   type KeyValueArray = Array<{
