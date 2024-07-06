@@ -319,15 +319,6 @@ const Channels = () => {
         </button>
       </ChatContainer>
     </ProtectedRoute>
-  );
-};
-
-const Channels = () => {
-  type KeyValueArray = Array<{
-    id: string;
-    data: IMessageData;
-  }>;
-
   const { authUser } = useAuth();
   const [rooms, setRooms] = useState<any[]>([]);
   const [currRoomID, setCurrRoomID] = useState<string>("");
