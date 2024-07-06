@@ -124,10 +124,10 @@ import adityaW from "../images/members/2026/adityaW.webp";
 import herschelle from "../images/members/2026/herschelle.webp"
 
 import shivam from "../images/members/2027/shivam.webp";
-import abinavT from "../images/members/2027/abhinav T.webp;
-import hardik from "../images/members/2027/hardik.webp;
-import yug from "../images/members/2027/yug.webp;
-import omkesh from "../images/members/2027/omkesh.webp; 
+import abinavT from "../images/members/2027/abhinav T.webp";
+import hardik from "../images/members/2027/hardik.webp";
+import yug from "../images/members/2027/yug.webp";
+import omkesh from "../images/members/2027/omkesh.webp";
 
 
 interface Member {
@@ -1657,9 +1657,9 @@ export const year2026: Member[] = [
     facebook: "",
   }
 ];
-export const year2027: Member[] [
+export const year2027: Member[] = [
   {
-   name: "Shivam Kuntal",
+    name: "Shivam Kuntal",
     image: shivam,
     desc: "Artificial Intelligence and Data Engineering",
     github: "",
@@ -1667,19 +1667,19 @@ export const year2027: Member[] [
     twitter: "",
     instagram: "",
     facebook: "",
-},
-{
-  name: "Abhinav Thapliyal",
-    image: abhinav T,
+  },
+  {
+    name: "Abhinav Thapliyal",
+    image: abhinavT, // Fixed the image name to match the import
     desc: "Chemical Engineering",
     github: "",
     linkedin: "https://www.linkedin.com/in/arvi7/",
     twitter: "",
     instagram: "",
     facebook: "",
-    },
-{
-  name: "Hardik",
+  },
+  {
+    name: "Hardik",
     image: hardik,
     desc: "Artificial Intelligence and Data Engineering",
     github: "",
@@ -1687,9 +1687,9 @@ export const year2027: Member[] [
     twitter: "",
     instagram: "",
     facebook: "",
-    },
-{
-  name: "Yug Agarwal",
+  },
+  {
+    name: "Yug Agarwal",
     image: yug,
     desc: "Electrical Engineering",
     github: "",
@@ -1697,9 +1697,9 @@ export const year2027: Member[] [
     twitter: "",
     instagram: "",
     facebook: "",
-    },
-{
-  name: "Omkesh Dwivedi",
+  },
+  {
+    name: "Omkesh Dwivedi",
     image: omkesh,
     desc: "Electronics & Communication Engineering",
     github: "",
@@ -1707,5 +1707,5 @@ export const year2027: Member[] [
     twitter: "",
     instagram: "",
     facebook: "",
-},
+  }
 ];
