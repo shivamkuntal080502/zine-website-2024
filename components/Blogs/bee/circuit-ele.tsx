@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Link from "next/link";
-import { Chrono } from "react-chrono";
 import Image from "next/image";
 import Requirements from "../../../images/blog/bee/circuit-ele/image12.png";
 import Bulb from "../../../images/blog/bee/circuit-ele/image16.png";
@@ -55,7 +53,7 @@ const CircuitEle = () => {
 
         <p>1. Required elements:</p>
         <div className="text-center">
-          <Image src={Requirements} />
+          <Image src={Requirements} width={600} height={400} alt="Requirements" />
         </div>
 
         <p>
@@ -74,12 +72,12 @@ const CircuitEle = () => {
             </p>
           </div>
           <div className="col-span-2">
-            <Image src={Bulb} />
+            <Image src={Bulb} width={100} height={100} alt="Bulb" />
           </div>
         </div>
         <div className="grid grid-cols-12 gap-8">
           <div className="col-span-3">
-            <Image src={BulbConnected} />
+            <Image src={BulbConnected} width={150} height={150} alt="Bulb Connected" />
           </div>
           <div className="col-span-7">
             <p>
@@ -108,7 +106,7 @@ const CircuitEle = () => {
             </p>
           </div>
           <div className="col-span-2 mt-24">
-            <Image src={BulbBattery} />
+            <Image src={BulbBattery} width={100} height={100} alt="Bulb Battery" />
           </div>
         </div>
         <div className="grid grid-cols-12">
@@ -119,7 +117,7 @@ const CircuitEle = () => {
               takes only one of them at once.
             </p>
             <div className="text-center">
-              <Image src={TwoBulbs} />
+              <Image src={TwoBulbs} width={300} height={200} alt="Two Bulbs" />
             </div>
           </div>
         </div>
@@ -137,7 +135,7 @@ const CircuitEle = () => {
         </p>
         <div className="grid grid-cols-2 gap-8 mt-12">
           <div className="col-span-1">
-            <Image src={ActivePassive} />
+            <Image src={ActivePassive} width={300} height={200} alt="Active Passive" />
           </div>
           <div className="col-span-1">
             <h1 className="text-3xl">Active Circuit Elements</h1>
@@ -157,366 +155,446 @@ const CircuitEle = () => {
         <div className="grid grid-cols-2 mt-12 gap-16">
           <div className="col-span-1">
             <p>
-              Now try to think of some active components.🤔 Battery…uh...um...battery.🤫 I’m not playing this. Wait, you're here to learn, so, let us tell you. Other than batteries we have...ah… it’s hard really...😒...yes...generators? Yes, they supply energy to the circuit...or we say generally, all voltage and current sources are active circuit elements.
+              Now try to think of some active components.🤔 Battery…uh...um...battery.🤫 I’m not playing this. Wait, you're here to learn, so, let us tell you. Other than batteries we have...ah… it’s hard to think. A transistor is an active component as well.
             </p>
-            <p className="mt-16">Let’s now study these elements one by one</p>
           </div>
           <div className="col-span-1">
-            <Image src={Symbols} />
+            <Image src={Symbols} width={300} height={200} alt="Symbols" />
           </div>
         </div>
 
-        <div className="my-16">
-          <h1 className="text-4xl font-bold text-center mb-8">Resistor</h1>
-          <p className="mb-8">
-            The resistor is the most common and well-known passive element in
-            any circuit. Just like the name suggests, the job of a resistor is
-            to resist. A resistor restricts the flow of current to a certain
-            level. In real life, the electric equipment that we use contains a
-            high resistance because, at a lower resistance, it would burn out.
-            This behavior of resisting the current is the main function of a
-            resistor.
-          </p>
-          <Image src={JoinTheResistance} />
+        <h1 className="text-3xl mt-8">Resistors</h1>
+        <div className="grid grid-cols-2 mt-12 gap-16">
+          <div className="col-span-1">
+            <Image src={JoinTheResistance} width={300} height={200} alt="Join The Resistance" />
+          </div>
+          <div className="col-span-1">
+            <p>
+              Let’s start with resistors. As the name suggests, it resists the
+              current flow in the circuit. Suppose, you have 5 tubes of cold
+              drinks, all empty and of similar capacity. Now fill them with 1,
+              2, 3, 4, and 5 pebbles respectively and cover the tops with a
+              paper having a single hole of the size of a pebble. Now pour the
+              water in the tubes at similar rates for similar times. What do you
+              observe? The amount of water collected in the container below each
+              tube is different. The amount of water collected below the tube
+              having a smaller number of pebbles is larger than the amount
+              collected in the tube having a larger number of pebbles.
+              Hypothetically, the number of pebbles in the tubes is similar to
+              the amount of resistance each resistor offers. Higher resistance
+              will allow less current to pass through it. Let’s end this
+              hypothetical example here because if someone asks you, what a
+              resistor is, it should be something like:
+            </p>
+          </div>
         </div>
 
+        <p className="mt-8 border-2 border-solid border-black px-4">
+          An electric component that offers resistance to the flow of electric
+          current is called a resistor. The resistance offered is constant in
+          all conditions.
+        </p>
+        <div className="text-center mt-12">
+          <Image src={R1R2} width={600} height={400} alt="R1R2" />
+        </div>
         <p className="mt-8">
-          A resistor works on the principle of Ohm’s Law. Ohm’s Law states that
-          the current through a conductor between two points is directly
-          proportional to the voltage across the two points. Introducing the
-          constant of proportionality, the resistance, one arrives at the usual
-          mathematical equation that describes this relationship:
+          Now that you have learned about resistors, let’s move to the types of
+          resistors.
         </p>
 
-        <div className="border-2 border-solid border-black p-4 text-center my-8">
-          <p className="text-3xl">V = I.R</p>
-          <p>
-            where I is the current through the conductor in units of amperes, V
-            is the voltage measured across the conductor in units of volts, and
-            R is the resistance of the conductor in units of ohms.
+        <div className="grid grid-cols-2 mt-12 gap-16">
+          <div className="col-span-1">
+            <p>
+              As resistors are passive components, they don’t need to be in the
+              circuit to perform. They just resist the current flow. There are
+              different types of resistors based on material, construction, and
+              other parameters. Let’s dive into some common ones.
+            </p>
+            <p className="mt-4">
+              <b>Carbon Film Resistor:</b> These resistors are made by depositing
+              a thin layer of carbon film onto an insulating substrate. They
+              offer good stability and low noise.
+            </p>
+            <p className="mt-4">
+              <b>Metal Film Resistor:</b> Similar to carbon film resistors but
+              with a metal film. They offer better precision and stability.
+            </p>
+            <p className="mt-4">
+              <b>Wire Wound Resistor:</b> Made by winding a metal wire (usually
+              nichrome) around an insulating core. They can handle high power.
+            </p>
+            <p className="mt-4">
+              <b>Surface Mount Resistor:</b> These are small resistors used in
+              surface-mount technology (SMT). They are designed for automated
+              placement on circuit boards.
+            </p>
+          </div>
+          <div className="col-span-1">
+            <Image src={Different} width={300} height={200} alt="Different" />
+          </div>
+        </div>
+        <div className="grid grid-cols-2 mt-12 gap-16">
+          <div className="col-span-1">
+            <Image src={CarbonFilm} width={300} height={200} alt="Carbon Film" />
+            <p className="text-center">Carbon Film Resistor</p>
+          </div>
+          <div className="col-span-1">
+            <Image src={MetalFilm} width={300} height={200} alt="Metal Film" />
+            <p className="text-center">Metal Film Resistor</p>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 mt-12 gap-16">
+          <div className="col-span-1">
+            <Image src={WireWound} width={300} height={200} alt="Wire Wound" />
+            <p className="text-center">Wire Wound Resistor</p>
+          </div>
+          <div className="col-span-1">
+            <Image src={SurfaceMount} width={300} height={200} alt="Surface Mount" />
+            <p className="text-center">Surface Mount Resistor</p>
+          </div>
+        </div>
+
+        <div className="mt-12">
+          <h1 className="text-3xl">Capacitors</h1>
+          <div className="grid grid-cols-2 mt-12 gap-16">
+            <div className="col-span-1">
+              <p>
+                Capacitors are another type of passive circuit element. They
+                store electrical energy in an electric field. Imagine a water
+                tank with two pipes, one for input and one for output. When you
+                fill the tank with water (charge the capacitor), it stores the
+                water. When you open the output pipe (discharge the capacitor),
+                the water flows out. The same happens in a capacitor.
+              </p>
+            </div>
+            <div className="col-span-1">
+              <Image src={CapacitorStructure} width={300} height={200} alt="Capacitor Structure" />
+            </div>
+          </div>
+          <p className="mt-8 border-2 border-solid border-black px-4">
+            A capacitor is a passive two-terminal electronic component that
+            stores electrical energy in an electric field.
           </p>
-        </div>
-
-        <div className="text-center">
-          <Image src={R1R2} />
-        </div>
-
-        <p className="my-8">
-          If we apply a high enough voltage to a conductor, current will flow
-          through it. The higher the voltage, the more current will flow. The
-          more current flows, the more the conductor will heat up. If we
-          continue to apply high enough voltage, the conductor will heat up to
-          the point where it burns. This is what happens in a light bulb. The
-          filament inside the bulb is a thin conductor. When we apply a high
-          enough voltage to it, the filament heats up to the point where it
-          glows, producing light. This is the principle behind all incandescent
-          light bulbs.
-        </p>
-
-        <div className="text-center">
-          <Image src={Different} />
-        </div>
-
-        <p className="mt-8">
-          This behavior of heating up and burning out is what limits the amount
-          of current that can flow through a conductor. The higher the
-          resistance of the conductor, the more it will resist the flow of
-          current. The lower the resistance, the more current will flow. This is
-          why resistors are used in circuits to limit the amount of current that
-          can flow. By choosing a resistor with the appropriate resistance, we
-          can control the amount of current that flows through a circuit.
-        </p>
-        <p>
-          The resistance of a resistor is measured in ohms. The symbol for ohms
-          is Ω. The resistance of a resistor is determined by the material it is
-          made of and its physical dimensions. The resistance of a resistor is
-          constant over a wide range of voltages and currents. This makes
-          resistors very useful for controlling the amount of current that flows
-          through a circuit.
-        </p>
-
-        <div className="text-center mt-8">
-          <Image src={FunFact} />
-        </div>
-
-        <h1 className="text-4xl text-center mt-12">Types of Resistors</h1>
-
-        <div className="mt-8">
-          <h1 className="text-2xl mt-8">Carbon Film Resistor</h1>
-          <div className="grid grid-cols-2 gap-16 mt-8">
-            <div className="col-span-1">
-              <Image src={CarbonFilm} />
-            </div>
-            <div className="col-span-1">
-              <p>
-                The carbon film resistor is made by depositing a thin layer of
-                carbon on an insulating substrate. The resistance of the
-                resistor is determined by the thickness and length of the carbon
-                film. The carbon film resistor has a higher resistance than the
-                wire wound resistor and is less expensive to manufacture.
-              </p>
-            </div>
+          <div className="text-center mt-12">
+            <Image src={FunFact} width={600} height={400} alt="Fun Fact" />
           </div>
-          <h1 className="text-2xl mt-16">Metal Film Resistor</h1>
-          <div className="grid grid-cols-2 gap-16 mt-8">
-            <div className="col-span-1">
-              <Image src={MetalFilm} />
-            </div>
-            <div className="col-span-1">
-              <p>
-                The metal film resistor is made by depositing a thin layer of
-                metal on an insulating substrate. The resistance of the resistor
-                is determined by the thickness and length of the metal film. The
-                metal film resistor has a lower resistance than the carbon film
-                resistor and is more expensive to manufacture.
-              </p>
-            </div>
-          </div>
-          <h1 className="text-2xl mt-16">Wire Wound Resistor</h1>
-          <div className="grid grid-cols-2 gap-16 mt-8">
-            <div className="col-span-1">
-              <Image src={WireWound} />
-            </div>
-            <div className="col-span-1">
-              <p>
-                The wire wound resistor is made by winding a thin wire around an
-                insulating substrate. The resistance of the resistor is
-                determined by the length and diameter of the wire. The wire
-                wound resistor has a lower resistance than the metal film
-                resistor and is more expensive to manufacture.
-              </p>
-            </div>
-          </div>
-          <h1 className="text-2xl mt-16">Surface Mount Resistor</h1>
-          <div className="grid grid-cols-2 gap-16 mt-8">
-            <div className="col-span-1">
-              <Image src={SurfaceMount} />
-            </div>
-            <div className="col-span-1">
-              <p>
-                The surface mount resistor is made by depositing a thin layer of
-                metal on an insulating substrate. The resistance of the resistor
-                is determined by the thickness and length of the metal film. The
-                surface mount resistor has a lower resistance than the wire
-                wound resistor and is more expensive to manufacture.
-              </p>
-            </div>
-          </div>
-          <h1 className="text-2xl mt-16">Structure of Resistor</h1>
-          <div className="text-center mt-8">
-            <Image src={Structure} />
-          </div>
-        </div>
-
-        <div className="text-center mt-16">
-          <Image src={FunFactResistor} />
-        </div>
-
-        <div className="my-16">
-          <h1 className="text-4xl text-center">Capacitors</h1>
           <p className="mt-8">
-            A capacitor is a device that stores electrical energy in an electric
-            field. It is a passive electronic component with two terminals. The
-            effect of a capacitor is known as capacitance. While some
-            capacitance exists between any two electrical conductors in
-            proximity in a circuit, a capacitor is a component designed to add
-            capacitance to a circuit. The capacitor was originally known as a
-            condenser or condensator.
+            Like resistors, capacitors also have different types based on their
+            construction and material.
           </p>
-          <Image src={CapacitorBlast} className="my-16" />
-        </div>
-
-        <div className="grid grid-cols-2 mt-16 gap-8">
-          <div className="col-span-1">
-            <h1 className="text-2xl">Structure of Capacitor</h1>
-            <Image src={CapacitorStructure} />
+          <div className="grid grid-cols-2 mt-12 gap-16">
+            <div className="col-span-1">
+              <p>
+                <b>Film Capacitor:</b> These capacitors use a thin plastic film
+                as the dielectric. They are stable and reliable.
+              </p>
+              <p className="mt-4">
+                <b>Ceramic Capacitor:</b> Made from ceramic materials as the
+                dielectric. They have high capacitance values and are used in
+                high-frequency applications.
+              </p>
+              <p className="mt-4">
+                <b>Electrolytic Capacitor:</b> These capacitors have a larger
+                capacitance than other capacitors. They use an electrolyte as
+                the dielectric and are polarized.
+              </p>
+              <p className="mt-4">
+                <b>Supercapacitor:</b> Also known as ultracapacitors, they have
+                very high capacitance values and are used for energy storage.
+              </p>
+            </div>
+            <div className="col-span-1">
+              <Image src={FilmCapacitor} width={300} height={200} alt="Film Capacitor" />
+            </div>
           </div>
-          <div className="col-span-1">
-            <h1 className="text-2xl">Film Capacitors</h1>
-            <Image src={FilmCapacitor} />
+          <div className="grid grid-cols-2 mt-12 gap-16">
+            <div className="col-span-1">
+              <Image src={YellowFilmCapacitor} width={300} height={200} alt="Yellow Film Capacitor" />
+              <p className="text-center">Yellow Film Capacitor</p>
+            </div>
+            <div className="col-span-1">
+              <Image src={AxialCapacitor} width={300} height={200} alt="Axial Capacitor" />
+              <p className="text-center">Axial Capacitor</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 mt-12 gap-16">
+            <div className="col-span-1">
+              <Image src={BigYellowCapacitor} width={300} height={200} alt="Big Yellow Capacitor" />
+              <p className="text-center">Big Yellow Capacitor</p>
+            </div>
+            <div className="col-span-1">
+              <Image src={CeramicCapacitor} width={300} height={200} alt="Ceramic Capacitor" />
+              <p className="text-center">Ceramic Capacitor</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 mt-12 gap-16">
+            <div className="col-span-1">
+              <Image src={Mlcc} width={300} height={200} alt="MLCC" />
+              <p className="text-center">MLCC</p>
+            </div>
+            <div className="col-span-1">
+              <Image src={ElectrolyticCapacitor} width={300} height={200} alt="Electrolytic Capacitor" />
+              <p className="text-center">Electrolytic Capacitor</p>
+            </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 mt-16 gap-8">
-          <div className="col-span-1">
-            <h1 className="text-2xl">Ceramic Capacitors</h1>
-            <Image src={CeramicCapacitor} />
+        <div className="mt-12">
+          <h1 className="text-3xl">Inductors</h1>
+          <div className="grid grid-cols-2 mt-12 gap-16">
+            <div className="col-span-1">
+              <Image src={Inductor} width={300} height={200} alt="Inductor" />
+            </div>
+            <div className="col-span-1">
+              <p>
+                Inductors are passive components that store energy in a magnetic
+                field. They are made of a coil of wire. When current flows
+                through the wire, a magnetic field is created around the coil.
+                If the current changes, the magnetic field changes, which
+                induces a voltage (electromotive force) opposing the change in
+                current. This property is called inductance.
+              </p>
+            </div>
           </div>
-          <div className="col-span-1">
-            <h1 className="text-2xl">Electrolytic Capacitors</h1>
-            <Image src={ElectrolyticCapacitor} />
+          <p className="mt-8 border-2 border-solid border-black px-4">
+            An inductor is a passive electronic component that stores energy in
+            a magnetic field when electric current flows through it.
+          </p>
+          <div className="text-center mt-12">
+            <Image src={InductorTypes} width={600} height={400} alt="Inductor Types" />
+          </div>
+          <p className="mt-8">
+            Inductors also come in various types based on their core material,
+            shape, and application.
+          </p>
+          <div className="grid grid-cols-2 mt-12 gap-16">
+            <div className="col-span-1">
+              <p>
+                <b>Air Core Inductor:</b> These inductors have no magnetic core,
+                just air. They are used in high-frequency applications.
+              </p>
+              <p className="mt-4">
+                <b>Iron Core Inductor:</b> These inductors use iron as the core
+                material. They can store more energy and are used in power
+                applications.
+              </p>
+              <p className="mt-4">
+                <b>Ferrite Core Inductor:</b> Made using ferrite material as the
+                core. They are widely used in electronic circuits for their
+                high inductance and low losses.
+              </p>
+            </div>
+            <div className="col-span-1">
+              <Image src={AirCore} width={300} height={200} alt="Air Core" />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 mt-12 gap-16">
+            <div className="col-span-1">
+              <Image src={IronCore} width={300} height={200} alt="Iron Core" />
+              <p className="text-center">Iron Core Inductor</p>
+            </div>
+            <div className="col-span-1">
+              <Image src={FerriteCore} width={300} height={200} alt="Ferrite Core" />
+              <p className="text-center">Ferrite Core Inductor</p>
+            </div>
           </div>
         </div>
 
-        <div className="text-center mt-16">
-          <Image src={Mlcc} />
+        <div className="mt-12">
+          <h1 className="text-3xl">Transistors</h1>
+          <div className="grid grid-cols-2 mt-12 gap-16">
+            <div className="col-span-1">
+              <p>
+                Transistors are active components and are used to amplify or
+                switch electronic signals. They have three terminals: the
+                emitter, base, and collector. The small current flowing through
+                the base controls the larger current flowing between the
+                collector and emitter. Transistors are the building blocks of
+                modern electronic devices.
+              </p>
+            </div>
+            <div className="col-span-1">
+              <Image src={Transistor} width={300} height={200} alt="Transistor" />
+            </div>
+          </div>
+          <p className="mt-8 border-2 border-solid border-black px-4">
+            A transistor is a semiconductor device used to amplify or switch
+            electronic signals and electrical power.
+          </p>
+          <div className="text-center mt-12">
+            <Image src={Silicon} width={600} height={400} alt="Silicon" />
+          </div>
+          <p className="mt-8">
+            There are different types of transistors, each with its own
+            characteristics and applications.
+          </p>
+          <div className="grid grid-cols-2 mt-12 gap-16">
+            <div className="col-span-1">
+              <p>
+                <b>Bipolar Junction Transistor (BJT):</b> BJTs are used for
+                amplification and switching. They come in two types: NPN and PNP.
+              </p>
+              <p className="mt-4">
+                <b>Field-Effect Transistor (FET):</b> FETs control the flow of
+                current using an electric field. They are used in low-power
+                applications.
+              </p>
+              <p className="mt-4">
+                <b>MOSFET (Metal-Oxide-Semiconductor FET):</b> A type of FET used
+                for switching and amplifying signals. They are widely used in
+                digital circuits.
+              </p>
+            </div>
+            <div className="col-span-1">
+              <Image src={Bjt} width={300} height={200} alt="BJT" />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 mt-12 gap-16">
+            <div className="col-span-1">
+              <Image src={Npn} width={300} height={200} alt="NPN" />
+              <p className="text-center">NPN Transistor</p>
+            </div>
+            <div className="col-span-1">
+              <Image src={Pnp} width={300} height={200} alt="PNP" />
+              <p className="text-center">PNP Transistor</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 mt-12 gap-16">
+            <div className="col-span-1">
+              <Image src={Fet} width={300} height={200} alt="FET" />
+              <p className="text-center">Field-Effect Transistor</p>
+            </div>
+            <div className="col-span-1">
+              <Image src={Mosfet} width={300} height={200} alt="MOSFET" />
+              <p className="text-center">MOSFET</p>
+            </div>
+          </div>
         </div>
 
-        <div className="text-center mt-16">
-          <Image src={BigYellowCapacitor} />
+        <div className="mt-12">
+          <h1 className="text-3xl">Diodes</h1>
+          <div className="grid grid-cols-2 mt-12 gap-16">
+            <div className="col-span-1">
+              <Image src={Diode} width={300} height={200} alt="Diode" />
+            </div>
+            <div className="col-span-1">
+              <p>
+                Diodes are active components that allow current to flow in one
+                direction only. They have two terminals: anode and cathode. When
+                the anode is positive with respect to the cathode, the diode is
+                forward-biased and conducts current. When the anode is negative,
+                the diode is reverse-biased and blocks current. Diodes are used
+                for rectification, signal demodulation, and other applications.
+              </p>
+            </div>
+          </div>
+          <p className="mt-8 border-2 border-solid border-black px-4">
+            A diode is a semiconductor device that allows current to flow in one
+            direction only.
+          </p>
+          <div className="text-center mt-12">
+            <Image src={FunFact2} width={600} height={400} alt="Fun Fact" />
+          </div>
+          <p className="mt-8">
+            There are different types of diodes, each serving specific
+            functions.
+          </p>
+          <div className="grid grid-cols-2 mt-12 gap-16">
+            <div className="col-span-1">
+              <p>
+                <b>Light Emitting Diode (LED):</b> These diodes emit light when
+                forward-biased. They are used for indication and display
+                purposes.
+              </p>
+              <p className="mt-4">
+                <b>Zener Diode:</b> Used for voltage regulation. They allow
+                current to flow in the reverse direction when the voltage exceeds
+                a certain value.
+              </p>
+              <p className="mt-4">
+                <b>Schottky Diode:</b> Known for their low forward voltage drop
+                and fast switching speed. They are used in high-frequency
+                applications.
+              </p>
+            </div>
+            <div className="col-span-1">
+              <Image src={Led} width={300} height={200} alt="LED" />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 mt-12 gap-16">
+            <div className="col-span-1">
+              <Image src={Zener} width={300} height={200} alt="Zener" />
+              <p className="text-center">Zener Diode</p>
+            </div>
+            <div className="col-span-1">
+              <Image src={Schottky} width={300} height={200} alt="Schottky" />
+              <p className="text-center">Schottky Diode</p>
+            </div>
+          </div>
         </div>
 
-        <div className="text-center mt-16">
-          <Image src={AxialCapacitor} />
+        <div className="mt-12">
+          <h1 className="text-3xl">Integrated Circuits</h1>
+          <div className="grid grid-cols-2 mt-12 gap-16">
+            <div className="col-span-1">
+              <p>
+                Integrated Circuits (ICs) are miniaturized electronic circuits
+                consisting of multiple components such as transistors,
+                resistors, capacitors, and diodes integrated onto a single
+                semiconductor chip. ICs have revolutionized electronics by
+                enabling complex circuits to be built into small packages. They
+                are used in almost every electronic device today.
+              </p>
+            </div>
+            <div className="col-span-1">
+              <Image src={IC} width={300} height={200} alt="Integrated Circuit" />
+            </div>
+          </div>
+          <p className="mt-8 border-2 border-solid border-black px-4">
+            An integrated circuit (IC) is a set of electronic circuits on a small
+            chip of semiconductor material, usually silicon.
+          </p>
+          <div className="text-center mt-12">
+            <Image src={IcDesign} width={600} height={400} alt="IC Design" />
+          </div>
+          <p className="mt-8">
+            ICs come in various types based on their function and complexity.
+          </p>
+          <div className="grid grid-cols-2 mt-12 gap-16">
+            <div className="col-span-1">
+              <p>
+                <b>Analog IC:</b> These ICs process continuous signals. Examples
+                include operational amplifiers and voltage regulators.
+              </p>
+              <p className="mt-4">
+                <b>Digital IC:</b> These ICs process digital signals. Examples
+                include microcontrollers and digital signal processors.
+              </p>
+              <p className="mt-4">
+                <b>Mixed-Signal IC:</b> These ICs process both analog and digital
+                signals. They are used in applications such as data converters.
+              </p>
+            </div>
+            <div className="col-span-1">
+              <Image src={AnalogDigital} width={300} height={200} alt="Analog and Digital ICs" />
+            </div>
+          </div>
         </div>
 
-        <div className="text-center mt-16">
-          <Image src={YellowFilmCapacitor} />
+        <div className="mt-12">
+          <h1 className="text-3xl">Conclusion</h1>
+          <p className="mt-8">
+            Understanding the basic components of electronic circuits is
+            essential for anyone interested in electronics. Resistors,
+            capacitors, inductors, transistors, diodes, and integrated circuits
+            each play a crucial role in the functioning of electronic devices.
+            By learning about these components, you gain the foundation needed
+            to explore more complex electronic systems and designs.
+          </p>
         </div>
       </div>
-
-      <Quiz />
-      <LikeButton />
-      <CommentSection />
     </div>
   );
-};
+}
 
-const Quiz = () => {
-  const questions = [
-    {
-      questionText: "What is the primary function of a resistor?",
-      answerOptions: [
-        { answerText: "To store electrical energy", isCorrect: false },
-        { answerText: "To allow current to flow", isCorrect: false },
-        { answerText: "To resist the flow of current", isCorrect: true },
-        { answerText: "To amplify signals", isCorrect: false },
-      ],
-    },
-    {
-      questionText: "What principle does a resistor work on?",
-      answerOptions: [
-        { answerText: "Faraday's Law", isCorrect: false },
-        { answerText: "Ohm's Law", isCorrect: true },
-        { answerText: "Kirchhoff's Law", isCorrect: false },
-        { answerText: "Lenz's Law", isCorrect: false },
-      ],
-    },
-    {
-      questionText: "Which type of resistor is made by winding a thin wire around an insulating substrate?",
-      answerOptions: [
-        { answerText: "Carbon Film Resistor", isCorrect: false },
-        { answerText: "Metal Film Resistor", isCorrect: false },
-        { answerText: "Wire Wound Resistor", isCorrect: true },
-        { answerText: "Surface Mount Resistor", isCorrect: false },
-      ],
-    },
-    {
-      questionText: "What is the unit of measurement for resistance?",
-      answerOptions: [
-        { answerText: "Volts", isCorrect: false },
-        { answerText: "Amperes", isCorrect: false },
-        { answerText: "Ohms", isCorrect: true },
-        { answerText: "Farads", isCorrect: false },
-      ],
-    },
-    {
-      questionText: "What is the primary function of a capacitor?",
-      answerOptions: [
-        { answerText: "To resist the flow of current", isCorrect: false },
-        { answerText: "To store electrical energy", isCorrect: true },
-        { answerText: "To amplify signals", isCorrect: false },
-        { answerText: "To convert AC to DC", isCorrect: false },
-      ],
-    },
-  ];
-
-  const [currentQuestion, setCurrentQuestion] = React.useState(0);
-  const [showScore, setShowScore] = React.useState(false);
-  const [score, setScore] = React.useState(0);
-
-  const handleAnswerOptionClick = (isCorrect) => {
-    if (isCorrect) {
-      setScore(score + 1);
-    }
-
-    const nextQuestion = currentQuestion + 1;
-    if (nextQuestion < questions.length) {
-      setCurrentQuestion(nextQuestion);
-    } else {
-      setShowScore(true);
-    }
-  };
-
-  return (
-    <div className="text-center mt-16">
-      {showScore ? (
-        <div className="text-2xl">You scored {score} out of {questions.length}</div>
-      ) : (
-        <>
-          <div className="text-2xl mb-8">
-            <span>{currentQuestion + 1}</span>/{questions.length}
-          </div>
-          <div className="text-2xl mb-8">{questions[currentQuestion].questionText}</div>
-          <div className="grid grid-cols-2 gap-8">
-            {questions[currentQuestion].answerOptions.map((answerOption, index) => (
-              <button
-                key={index}
-                onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}
-                className="py-4 px-8 bg-blue-500 text-white rounded"
-              >
-                {answerOption.answerText}
-              </button>
-            ))}
-          </div>
-        </>
-      )}
-    </div>
-  );
-};
-
-const LikeButton = () => {
-  const [likes, setLikes] = React.useState(0);
-
-  return (
-    <div className="text-center mt-16">
-      <button
-        onClick={() => setLikes(likes + 1)}
-        className="py-4 px-8 bg-blue-500 text-white rounded"
-      >
-        Like ({likes})
-      </button>
-    </div>
-  );
-};
-
-const CommentSection = () => {
-  const [comments, setComments] = React.useState([]);
-  const [commentText, setCommentText] = React.useState("");
-
-  const handleCommentSubmit = () => {
-    if (commentText.trim() !== "") {
-      setComments([...comments, commentText]);
-      setCommentText("");
-    }
-  };
-
-  return (
-    <div className="text-center mt-16">
-      <div className="mb-8">
-        <input
-          type="text"
-          value={commentText}
-          onChange={(e) => setCommentText(e.target.value)}
-          className="py-2 px-4 border border-gray-300 rounded w-1/2"
-          placeholder="Add a comment"
-        />
-        <button
-          onClick={handleCommentSubmit}
-          className="py-2 px-4 bg-blue-500 text-white rounded ml-4"
-        >
-          Submit
-        </button>
-      </div>
-      <div>
-        {comments.map((comment, index) => (
-          <div key={index} className="border-b border-gray-300 py-4">
-            {comment}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export default App;
+export default Blog;
