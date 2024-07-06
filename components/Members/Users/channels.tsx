@@ -158,7 +158,6 @@ const darkTheme = {
 };
 
 const Channels = () => {
-  const { user } = useAuth();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -167,6 +166,141 @@ const Channels = () => {
   const [loadingMore, setLoadingMore] = useState(false);
   const [editingMessage, setEditingMessage] = useState(null);
   const messagesEndRef = useRef(null);
+  const { authUser } = useAuth();
+  const [rooms, setRooms] = useState<any[]>([]);
+  const [currRoomID, setCurrRoomID] = useState<string>("");
+  const [currRoom, setCurrRoom] = useState<string>("");
+  const [messages, setMessages] = useState<KeyValueArray>([]);
+  const [currMsg, setCurrMsg] = useState("");
+  const [replyText, setReplyText] = useState<string>("");
+  const [replyingName, setReplyingName] = useState<string>("");
+  const [replyingMessageID, setReplyingMessageID] = useState<string | null>(null);
+  const [currRoomImage, setCurrRoomImage] = useState<string>("");
+  const lastMessageRef = useRef<HTMLDivElement | null>(null);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [hide, setHide] = useState(false);
+  const [announcements, setAnnouncements] = useState<IMessageData[]>([]);
+  const updateScreenWidth = () => {
+    setScreenWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    window.addEventListener("resize", updateScreenWidth);
+    return () => window.removeEventListener("resize", updateScreenWidth);
+  }, []);
+
+  useEffect(() => {
+    if (currRoomID) {
+      const roomRef = doc(db, "rooms", currRoomID);
+      const messagesRef = collection(roomRef, "messages");
+      const q = query(messagesRef, orderBy("timeStamp", "asc"));
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        const newMsg: KeyValueArray = [];
+        snapshot.docChanges().forEach((change) => {
+          if (change.type === "added") {
+            // console.log(change.doc.data());
+            // console.log(change.doc.id);
+            newMsg.push({ id: change.doc.id, data: change.doc.data() as IMessageData });
+          }
+          // if (change.type === "modified") {
+          //   console.log("Modified", change.doc.data());
+          // }
+          // if (change.type === "removed") {
+          //   console.log("Removed", change.doc.data());
+          // }
+        });
+        // console.log("new docs", newMsg);
+
+        // console.log("new docs length", newMsg.length);
+
+        setMessages((oldMsg) => [...oldMsg, ...newMsg]);
+      });
+      return () => {
+        unsubscribe();
+      };
+    }
+  }, [currRoomID]);
+
+  const fetchRooms = async () => {
+    const promises = authUser?.roomids.map(async (roomID: string) => {
+      const roomRef = doc(db, "rooms", roomID);
+      const roomSnapshot = await getDoc(roomRef);
+      if (roomSnapshot.exists()) {
+        return [roomID, roomSnapshot.data()];
+      } else {
+        return [roomID, null];
+      }
+    });
+    const final = await Promise.all(promises);
+    // console.log("rooms", final);
+
+    // const IDValuePairs = Object.assign({}, ...final);
+    setRooms(final);
+  };
+  useEffect(() => {
+    fetchRooms();
+  }, []);
+
+  useEffect(() => {
+    if (lastMessageRef.current) {
+      lastMessageRef.current!.scrollIntoView();
+    }
+  }, [messages]);
+  const handleSend = async () => {
+    if (!currMsg) return;
+    const roomCollection = collection(db, "rooms");
+    const roomDoc = doc(roomCollection, currRoomID);
+    const user = {
+      name: authUser?.name,
+      id: authUser?.uid,
+    };
+    //console.log(user, currMsg,roomRef);
+    //console.log("user data", user);
+    //console.log("id", replyingMessageID);
+    const res = await sendMessage(roomDoc, currMsg, user, replyingMessageID);
+    await sendFCMMessage(currRoom, currRoom, currMsg);
+
+    //console.log(res);
+    //fetchSubCollectionMessages(roomDoc.id);
+    setCurrMsg("");
+    setReplyText("");
+    setReplyingName("");
+    setReplyingMessageID(null);
+    //console.log("message sent",res);
+  };
+  const timestampToHuman = (timeStamp: ITimestamp) => {
+    const date = new Date(timeStamp.seconds * 1000);
+    return {
+      date: date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      }),
+      time: date.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+      }),
+    };
+  };
+
+  const URL_REGEX = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
+  function RenderMessageWithLinks({
+    message,
+    user,
+    space,
+    name,
+    id,
+    text,
+    disableStatus,
+    mobile,
+  }: {
+    message: string;
+    user: boolean;
+    space: boolean;
+    name: string;
+    id: string;
+    text: string;
+    disableStatus: boolean;
+    mobile: boolean;
+  }) {
 
   // Fetch messages
   useEffect(() => {
@@ -319,142 +453,6 @@ const Channels = () => {
         </button>
       </ChatContainer>
     </ProtectedRoute>
-  const { authUser } = useAuth();
-  const [rooms, setRooms] = useState<any[]>([]);
-  const [currRoomID, setCurrRoomID] = useState<string>("");
-  const [currRoom, setCurrRoom] = useState<string>("");
-  const [messages, setMessages] = useState<KeyValueArray>([]);
-  const [currMsg, setCurrMsg] = useState("");
-  const [replyText, setReplyText] = useState<string>("");
-  const [replyingName, setReplyingName] = useState<string>("");
-  const [replyingMessageID, setReplyingMessageID] = useState<string | null>(null);
-  const [currRoomImage, setCurrRoomImage] = useState<string>("");
-  const lastMessageRef = useRef<HTMLDivElement | null>(null);
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-  const [hide, setHide] = useState(false);
-  const [announcements, setAnnouncements] = useState<IMessageData[]>([]);
-  const updateScreenWidth = () => {
-    setScreenWidth(window.innerWidth);
-  };
-  useEffect(() => {
-    window.addEventListener("resize", updateScreenWidth);
-    return () => window.removeEventListener("resize", updateScreenWidth);
-  }, []);
-
-  useEffect(() => {
-    if (currRoomID) {
-      const roomRef = doc(db, "rooms", currRoomID);
-      const messagesRef = collection(roomRef, "messages");
-      const q = query(messagesRef, orderBy("timeStamp", "asc"));
-      const unsubscribe = onSnapshot(q, (snapshot) => {
-        const newMsg: KeyValueArray = [];
-        snapshot.docChanges().forEach((change) => {
-          if (change.type === "added") {
-            // console.log(change.doc.data());
-            // console.log(change.doc.id);
-            newMsg.push({ id: change.doc.id, data: change.doc.data() as IMessageData });
-          }
-          // if (change.type === "modified") {
-          //   console.log("Modified", change.doc.data());
-          // }
-          // if (change.type === "removed") {
-          //   console.log("Removed", change.doc.data());
-          // }
-        });
-        // console.log("new docs", newMsg);
-
-        // console.log("new docs length", newMsg.length);
-
-        setMessages((oldMsg) => [...oldMsg, ...newMsg]);
-      });
-      return () => {
-        unsubscribe();
-      };
-    }
-  }, [currRoomID]);
-
-  const fetchRooms = async () => {
-    const promises = authUser?.roomids.map(async (roomID: string) => {
-      const roomRef = doc(db, "rooms", roomID);
-      const roomSnapshot = await getDoc(roomRef);
-      if (roomSnapshot.exists()) {
-        return [roomID, roomSnapshot.data()];
-      } else {
-        return [roomID, null];
-      }
-    });
-    const final = await Promise.all(promises);
-    // console.log("rooms", final);
-
-    // const IDValuePairs = Object.assign({}, ...final);
-    setRooms(final);
-  };
-  useEffect(() => {
-    fetchRooms();
-  }, []);
-
-  useEffect(() => {
-    if (lastMessageRef.current) {
-      lastMessageRef.current!.scrollIntoView();
-    }
-  }, [messages]);
-  const handleSend = async () => {
-    if (!currMsg) return;
-    const roomCollection = collection(db, "rooms");
-    const roomDoc = doc(roomCollection, currRoomID);
-    const user = {
-      name: authUser?.name,
-      id: authUser?.uid,
-    };
-    //console.log(user, currMsg,roomRef);
-    //console.log("user data", user);
-    //console.log("id", replyingMessageID);
-    const res = await sendMessage(roomDoc, currMsg, user, replyingMessageID);
-    await sendFCMMessage(currRoom, currRoom, currMsg);
-
-    //console.log(res);
-    //fetchSubCollectionMessages(roomDoc.id);
-    setCurrMsg("");
-    setReplyText("");
-    setReplyingName("");
-    setReplyingMessageID(null);
-    //console.log("message sent",res);
-  };
-  const timestampToHuman = (timeStamp: ITimestamp) => {
-    const date = new Date(timeStamp.seconds * 1000);
-    return {
-      date: date.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-      }),
-      time: date.toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "numeric",
-      }),
-    };
-  };
-
-  const URL_REGEX = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
-  function RenderMessageWithLinks({
-    message,
-    user,
-    space,
-    name,
-    id,
-    text,
-    disableStatus,
-    mobile,
-  }: {
-    message: string;
-    user: boolean;
-    space: boolean;
-    name: string;
-    id: string;
-    text: string;
-    disableStatus: boolean;
-    mobile: boolean;
-  }) {
-    return (
       <div
         className={`bg-blue-600 py-3 px-1 pr-3`}
         style={{
