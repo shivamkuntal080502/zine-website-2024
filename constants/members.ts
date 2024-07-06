@@ -123,6 +123,13 @@ import kushal from "../images/members/2026/kushal.webp";
 import adityaW from "../images/members/2026/adityaW.webp";
 import herschelle from "../images/members/2026/herschelle.webp"
 
+import shivam from "../images/members/2027/shivam.webp";
+import abinavT from "../images/members/2027/abhinav T.webp;
+import hardik from "../images/members/2027/hardik.webp;
+import yug from "../images/members/2027/yug.webp;
+import omkesh from "../images/members/2027/omkesh.webp; 
+
+
 interface Member {
   name: string;
   image: StaticImageData;
@@ -1649,4 +1656,56 @@ export const year2026: Member[] = [
     instagram: "",
     facebook: "",
   }
+];
+export const year2027: Member[] [
+  {
+   name: "Shivam Kuntal",
+    image: shivam,
+    desc: "Artificial Intelligence and Data Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/shivam-kuntal-82050a290/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+},
+{
+  name: "Abhinav Thapliyal",
+    image: abhinav T,
+    desc: "Chemical Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/arvi7/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    },
+{
+  name: "Hardik",
+    image: hardik,
+    desc: "Artificial Intelligence and Data Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/hardik-joshi-364690294/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    },
+{
+  name: "Yug Agarwal",
+    image: yug,
+    desc: "Electrical Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/yug-agarwal-8a6631205/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+    },
+{
+  name: "Omkesh Dwivedi",
+    image: omkesh,
+    desc: "Electronics & Communication Engineering",
+    github: "",
+    linkedin: "https://www.linkedin.com/in/omkesh-dwivedi-810430285/",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+},
 ];
