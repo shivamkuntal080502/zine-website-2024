@@ -453,8 +453,7 @@ const Channels = () => {
         </button>
       </ChatContainer>
     </ProtectedRoute>
-      <div
-        className={`bg-blue-600 py-3 px-1 pr-3`}
+      <div className={`bg-blue-600 py-3 px-1 pr-3`}
         style={{
           backgroundColor: `${user ? "#95C5E2" : "#0C72B0"}`,
           borderRadius: `${user ? "1.5rem 1.5rem 0.75rem 1.5rem" : "1.5rem 1.5rem 1.5rem 0.75rem"}`,
@@ -462,6 +461,7 @@ const Channels = () => {
           maxWidth: `${mobile ? "calc(95% - 2.5rem)" : "calc(60% - 2.5rem)"}`,
         }}
       >
+      </div>
         <div className="whitespace-pre-wrap break-words pl-3 text-white text-sm w-fit">
           {message.split("\n").map((line, index) => (
             <React.Fragment key={index}>
