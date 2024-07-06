@@ -597,4 +597,4 @@ const CircuitEle = () => {
   );
 }
 
-export default Blog;
+export default CircuitEle;
